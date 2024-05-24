@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "321802198834",
+    "project_id": "login-firebase-1ee54",
+    "storage_bucket": "login-firebase-1ee54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321802198834:android:b392f268d422ca9a29812b",
+        "android_client_info": {
+          "package_name": "com.example.tubespam_harmoni"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUrivJ3TU8lwYK7KzIiE0pzP6BpPwiXKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
