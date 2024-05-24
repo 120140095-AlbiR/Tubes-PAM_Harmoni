@@ -1,10 +1,10 @@
 # Aplikasi Musik Harmoni
 
-##### a. Short Description
+### a. Description
 
 Aplikasi 
 
-##### b. Project Team
+### b. Project Team
 
 
 ## Propossed Application
@@ -17,20 +17,14 @@ Halaman Home:
 Profile: 
 - Halaman profil adalah tempat di mana pengguna dapat melihat d
 
-##### b. Application Advantages
+### b. Application Advantages
 Beberapa adalah keunggulan aplikasi ini adalah 
 
 1. 
-##### c. Application Benefits:
+### c. Application Benefits:
 
 ## System Planning
-##### a. pplication Architecture
-Untuk arsitektur aplikasi, kami menggunakan metode
 
-##### b. Entity Relationship Diagram (ERD)
-
-
-##### c. Time Plan
 
 
 ## Figma
