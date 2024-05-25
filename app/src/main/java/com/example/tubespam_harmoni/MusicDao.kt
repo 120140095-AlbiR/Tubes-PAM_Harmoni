@@ -9,8 +9,9 @@ import androidx.room.Query
 
 @Dao
 interface MusicDao {
+
     @Query("SELECT * FROM music")
-    fun getAll(): LiveData<List<Music>>
+    fun getAllFavorites(): LiveData<List<Music>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(music: Music)
@@ -18,3 +19,5 @@ interface MusicDao {
     @Delete
     suspend fun delete(music: Music)
 }
+
+

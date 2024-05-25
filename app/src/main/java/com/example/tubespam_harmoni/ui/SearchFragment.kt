@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tubespam_harmoni.R
 
 // SearchFragment.kt
 class SearchFragment : Fragment() {
@@ -28,9 +28,12 @@ class SearchFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvSearchResults)
 
         val musicRepository = MusicRepository(RetrofitInstance.spotifyService)
-        viewModel = ViewModelProvider(this, ViewModelFactory(null, musicRepository)).get(MusicViewModel::class.java)
+        viewModel = ViewModelProvider(this, MusicViewModelFactory(musicRepository)).get(MusicViewModel::class.java)
 
-        adapter = MusicAdapter()
+        adapter = MusicAdapter{ music ->
+            val action = SearchFragmentDirections.actionSearchFragmentToMusicDetailFragment(music)
+            findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 

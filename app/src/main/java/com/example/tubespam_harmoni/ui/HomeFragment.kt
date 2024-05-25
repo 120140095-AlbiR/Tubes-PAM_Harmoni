@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -23,10 +24,13 @@ class HomeFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvPopularMusic)
 
         val musicRepository = MusicRepository(RetrofitInstance.spotifyService)
-        viewModel = ViewModelProvider(this, ViewModelFactory(null, musicRepository)).get(
+        viewModel = ViewModelProvider(this, MusicViewModelFactory(musicRepository)).get(
             MusicViewModel::class.java)
 
-        adapter = MusicAdapter()
+        adapter = MusicAdapter{ music ->
+            val action = HomeFragmentDirections.actionHomeFragmentToMusicDetailFragment(music)
+            findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 

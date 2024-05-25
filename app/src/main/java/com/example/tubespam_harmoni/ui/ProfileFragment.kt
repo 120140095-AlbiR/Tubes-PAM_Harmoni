@@ -1,42 +1,43 @@
-package com.example.tubespam_harmoni
+package com.example.tubespam_harmoni.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.tubespam_harmoni.R
 import com.google.firebase.auth.FirebaseAuth
 
-// ProfileFragment.kt
 class ProfileFragment : Fragment() {
-    private lateinit var viewModel: UserViewModel
-    private lateinit var tvEmail: TextView
-    private lateinit var btnLogout: Button
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        tvEmail = view.findViewById(R.id.tvEmail)
-        btnLogout = view.findViewById(R.id.btnLogout)
 
-        val userRepository = UserRepository(FirebaseAuth.getInstance())
-        viewModel = ViewModelProvider(this, ViewModelFactory(userRepository, null)).get(UserViewModel::class.java)
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
 
-        viewModel.user.observe(viewLifecycleOwner, Observer { user ->
-            tvEmail.text = user?.email
-        })
+        val tvEmail: TextView = view.findViewById(R.id.tvEmail)
+        val tvUsername: TextView = view.findViewById(R.id.tvUsername)
+        val btnLogout: Button = view.findViewById(R.id.btnLogout)
+
+        currentUser?.let {
+            tvEmail.text = it.email
+            tvUsername.text = it.displayName ?: "Username"
+        }
 
         btnLogout.setOnClickListener {
-            viewModel.logout()
-            startActivity(Intent(activity, LoginActivity::class.java))
-            activity?.finish()
+            auth.signOut()
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
+            Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
         }
 
         return view

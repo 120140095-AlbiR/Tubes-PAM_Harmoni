@@ -24,9 +24,11 @@ class FavoriteFragment : Fragment() {
 
         val musicDao = MusicDatabase.getDatabase(requireContext()).musicDao()
         val favoriteRepository = FavoriteRepository(musicDao)
-        viewModel = ViewModelProvider(this, ViewModelFactory(favoriteRepository)).get(FavoriteViewModel::class.java)
+        viewModel = ViewModelProvider(this, FavoriteViewModelFactory(favoriteRepository)).get(FavoriteViewModel::class.java)
 
-        adapter = MusicAdapter()
+        adapter = MusicAdapter { music ->
+            viewModel.removeFavorite(music)
+        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
